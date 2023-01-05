@@ -1,0 +1,22 @@
+{
+  "name": "soundcloud-downloader-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "soundcloud-downloader": "^1.0.0",
+    "telegraf": "^4.11.2",
+    "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "global-tunnel-ng": "^2.7.1",
+    "node-global-proxy": "^1.0.1"
+  }
+}
