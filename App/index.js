@@ -3,6 +3,8 @@ import {Telegraf} from 'telegraf';
 
 import config from "../Config/index.js";
 import {events} from "./events.js";
+import {loggerMiddleware} from "./Middleware/logger.js";
+import {requestId} from "./Middleware/requestId.js";
 
 export class App {
   #bot;
@@ -24,15 +26,17 @@ export class App {
       }
     });
 
-    this.#initLogger();
+    /*
+     * Initialize middlewares...
+     */
+    this.#bot.use(requestId);
+    this.#bot.use(loggerMiddleware(config.logger));
 
     console.log(`Bot started successfully...`);
 
     process.once('SIGINT', () => this.#bot.stop('SIGINT'));
     process.once('SIGTERM', () => this.#bot.stop('SIGTERM'));
   }
-
-  #initLogger() {}
 
   /**
    * @description Set global proxy for bypass FUCKING filtering with Lantern!!!
