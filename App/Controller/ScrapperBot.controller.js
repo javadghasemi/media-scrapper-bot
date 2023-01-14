@@ -14,13 +14,30 @@ export class ScrapperBotController {
     ctx.reply('Welcome');
   }
 
-  help(ctx) {
+  help(ctx) {    
     ctx.reply('Send me a sticker');
   }
-
-  async scrapSoundcloud(ctx) {
-    try {
+  
+  #getProvder(url){
+    if(url.indexOf('soundcloud')>-1){
+       return soundcloudProvider;
+    }
+    return (url,ctx) => {ctx.reply('URL is not supported!');};
+  }
+  
+  async download(ctx){
       const url = ctx.match.input;
+      const provider = this.#getProvider(url);
+      await provider(url,ctx);
+  }  
+  
+  async scrapSoundcloud(ctx) {
+      const url = ctx.match.input;
+      await this.soundcloudProvider(url,ctx);
+  }
+
+  async soundcloudProvider(url,ctx) {
+    try {
       const trackInfo = await this.#soundcloud.getInfo(url);
       const trackPhoto = trackInfo.artwork_url.replace('large', 't500x500');
       const caption = [
