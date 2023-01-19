@@ -1,5 +1,5 @@
 export const proxy = {
-  enabled: true,
+  enabled: false,
   host: 'http://127.0.0.1',
   port: 55746
 }

@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  telegram-bot:
+    image: mediscraper/scraper-bot
+    build: .
+    depends_on:
+      - scraper-service
+    environment:
+      - MODE=dev
+      - PORT=8080
+      - BOT_TOEKN=5398002883:AAGafwmNv5SyqSYqZxCaajEOx1TIo1IqIuY
+      - DOMAIN=https://9f5e-2a01-4f8-1c1e-b52e-00-1.eu.ngrok.io
+      - SCRAPER_SERVICE_URL=http://localhost:81
+    ports:
+      - "8080:8080"
+
+  scraper-service:
+    image: mediscraper/scraper-service
+    build: .
+    environment:
+      - MODE=dev
+      - PORT=81
+    expose:
+      - "81"
+    ports:
+      - "81:81"

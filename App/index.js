@@ -4,7 +4,8 @@ import {Telegraf} from 'telegraf';
 import config from "../Config/index.js";
 import {events} from "./events.js";
 import {loggerMiddleware} from "./Middleware/logger.js";
-import {requestId} from "./Middleware/requestId.js";
+import {requestId} from "./Middleware/request-id.js";
+import {validateUrl} from "./Middleware/validate-url.js";
 
 export class App {
   #bot;
@@ -15,10 +16,6 @@ export class App {
 
   async init() {
     this.#bot = new Telegraf(config.botToken);
-    /*
-     * Register telegram events
-     */
-    events(this.#bot);
     await this.#bot.launch({
       webhook: {
         domain: config.webhook.domain,
@@ -31,6 +28,12 @@ export class App {
      */
     this.#bot.use(requestId);
     this.#bot.use(loggerMiddleware(config.logger));
+    this.#bot.use(validateUrl);
+
+    /*
+     * Register telegram events
+     */
+    events(this.#bot);
 
     console.log(`Bot started successfully...`);
 
