@@ -1,4 +1,3 @@
-import {default as proxy} from "node-global-proxy";
 import {Telegraf} from 'telegraf';
 
 import config from "../Config/index.js";
@@ -11,7 +10,6 @@ export class App {
   #bot;
 
   constructor() {
-    this.#initialProxy();
   }
 
   async init() {
@@ -40,15 +38,5 @@ export class App {
 
     process.once('SIGINT', () => this.#bot.stop('SIGINT'));
     process.once('SIGTERM', () => this.#bot.stop('SIGTERM'));
-  }
-
-  /**
-   * @description Set global proxy for bypass FUCKING filtering with Lantern!!!
-   */
-  #initialProxy() {
-    if (config.mode === 'dev' && config?.proxy.enabled) {
-      proxy.default.setConfig(`${config.proxy.host}:${config.proxy.port}`);
-      proxy.default.start();
-    }
   }
 }
