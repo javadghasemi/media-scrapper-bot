@@ -19,7 +19,8 @@ export class App {
     await this.#bot.launch({
       webhook: {
         domain: config.webhook.domain,
-        port: config.webhook.port
+        port: config.webhook.port,
+        certificate: config.webhook.certificate
       }
     });
 
