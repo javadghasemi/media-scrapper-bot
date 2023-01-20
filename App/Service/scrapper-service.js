@@ -1,4 +1,4 @@
-import Service from "./Service.js";
+import Service from "./service.js";
 
 export default class ScrapperService extends Service {
   async info(url) {
