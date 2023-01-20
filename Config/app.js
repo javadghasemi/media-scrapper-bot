@@ -7,6 +7,6 @@ export const app = {
   webhook: {
     domain: process.env.DOMAIN,
     port: process.env.PORT,
-    certificate: readFileSync(join(__dirname, '..', 'cert', 'public.pem'))
+    certificate: readFileSync(join('..', 'cert', 'public.pem'))
   },
 }
